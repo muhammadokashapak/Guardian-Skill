@@ -1,0 +1,13 @@
+profile: web
+checks:
+  - auth
+  - authorization
+  - api
+  - secrets
+  - dependencies
+  - config
+  - tests
+frameworks:
+  - react
+  - nextjs
+  - node

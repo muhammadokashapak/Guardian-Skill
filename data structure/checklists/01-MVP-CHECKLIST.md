@@ -1,0 +1,18 @@
+# MVP Checklist
+- [ ] Discovery
+- [ ] Snapshot
+- [ ] Stack detection
+- [ ] Codebase graph
+- [ ] Security scan
+- [ ] Dependency scan
+- [ ] Secret scan
+- [ ] Findings
+- [ ] Risk scoring
+- [ ] Policy engine
+- [ ] Approval workflow
+- [ ] Fix proposal
+- [ ] Tests
+- [ ] Verification
+- [ ] Re-scan
+- [ ] Report
+- [ ] Audit log

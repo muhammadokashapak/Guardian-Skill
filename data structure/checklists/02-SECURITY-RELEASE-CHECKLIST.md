@@ -1,0 +1,13 @@
+# Security Release Checklist
+- [ ] Prompt-injection tests pass
+- [ ] Command injection tests pass
+- [ ] Path traversal tests pass
+- [ ] Symlink tests pass
+- [ ] Secret redaction tests pass
+- [ ] Network deny-by-default verified
+- [ ] Guardian policy cannot be weakened by repo content
+- [ ] High-risk approval enforced
+- [ ] Production write access absent by default
+- [ ] Dependency audit clean/accepted
+- [ ] Audit logs protected
+- [ ] Rollback tested

@@ -1,0 +1,15 @@
+mode: safe
+network:
+  default: deny
+execution:
+  sandbox_required: true
+  timeout_seconds: 120
+approval:
+  high_risk: required
+  critical: required
+logging:
+  redact_secrets: true
+  raw_secrets: false
+ai:
+  provider: configurable
+  allow_repository_instructions: false

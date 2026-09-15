@@ -1,0 +1,6 @@
+profile: fullstack
+include:
+  - web
+  - backend
+  - docker
+  - ci

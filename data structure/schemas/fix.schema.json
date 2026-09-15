@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "finding_id",
+    "risk_level",
+    "approval_required",
+    "verification_criteria"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "finding_id": {
+      "type": "string"
+    },
+    "risk_level": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "approval_required": {
+      "type": "boolean"
+    },
+    "affected_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "proposed_changes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "verification_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rollback_plan": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

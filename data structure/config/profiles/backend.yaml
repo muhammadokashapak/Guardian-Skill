@@ -1,0 +1,14 @@
+profile: backend
+checks:
+  - auth
+  - authorization
+  - api
+  - database
+  - secrets
+  - dependencies
+  - tests
+frameworks:
+  - laravel
+  - php
+  - python
+  - fastapi

@@ -1,0 +1,4 @@
+{
+  "target": "../../../windows/system32",
+  "type": "traversal_link"
+}

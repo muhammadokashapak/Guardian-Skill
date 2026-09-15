@@ -1,0 +1,125 @@
+version: '3.8'
+
+services:
+  # MySQL Database (Authoritative Relational Store)
+  mysql:
+    image: mysql:8.0
+    container_name: guardian_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: guardian_db
+      MYSQL_USER: guardian_user
+      MYSQL_PASSWORD: guardian_secret_password
+      MYSQL_ROOT_PASSWORD: guardian_root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - guardian_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  # Redis Cache & Asynchronous Queue Broker
+  redis:
+    image: redis:alpine
+    container_name: guardian_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - guardian_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # Guardian Core REST API Gateway (FastAPI / SQLAlchemy)
+  api:
+    build:
+      context: .
+      dockerfile: guardian_engine/Dockerfile
+    container_name: guardian_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=guardian_db
+      - DB_USERNAME=guardian_user
+      - DB_PASSWORD=guardian_secret_password
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - guardian_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/system-health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # Guardian Dedicated Background Queue Worker
+  worker:
+    build:
+      context: .
+      dockerfile: guardian_engine/Dockerfile
+    container_name: guardian_worker
+    restart: unless-stopped
+    command: ["python", "-m", "guardian_engine.worker"]
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=guardian_db
+      - DB_USERNAME=guardian_user
+      - DB_PASSWORD=guardian_secret_password
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - guardian_network
+
+  # Guardian Web Dashboard (Next.js / React / TypeScript)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: guardian_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - guardian_network
+
+volumes:
+  mysql_data:
+  redis_data:
+
+networks:
+  guardian_network:
+    driver: bridge

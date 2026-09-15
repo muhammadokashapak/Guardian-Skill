@@ -1,0 +1,11 @@
+# Fix Review Checklist
+- [ ] Root cause supported by evidence
+- [ ] Affected files identified
+- [ ] Risk level assigned
+- [ ] Approval requirement evaluated
+- [ ] Diff reviewed
+- [ ] Tests selected
+- [ ] Regression risk assessed
+- [ ] Verification criteria defined
+- [ ] Re-scan planned
+- [ ] Rollback available

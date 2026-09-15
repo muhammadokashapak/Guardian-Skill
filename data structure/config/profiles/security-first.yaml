@@ -1,0 +1,8 @@
+profile: security-first
+network: deny
+auto_modify: false
+auto_deploy: false
+secret_logging: false
+guardian_policy_modification: forbidden
+high_risk_approval: required
+critical_approval: required

@@ -1,0 +1,13 @@
+{
+  "name": "enterprise-portal",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "express": "4.18.2",
+    "lodash": "4.17.15",
+    "unpinned-pkg": "*"
+  }
+}
