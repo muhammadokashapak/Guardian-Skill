@@ -172,3 +172,17 @@ python skills/guardian/guardian_cli.py self-audit
 5. **Human Approval Gate**: All high-risk and modifying remediations require staff engineer authorization (`POST /api/v1/fixes/{id}/approve`).
 6. **Unified Diff Patching & Rollback**: Fixes are applied via structured unified diffs with pre-patch backups, followed by automated re-scanning and instant rollback upon failure.
 7. **Multi-Tenant Isolation**: Tenant context is extracted from authenticated API headers, strictly scoping all queries (`X-Organization-Id`) and preventing cross-tenant information leakage.
+
+---
+
+## 👨‍💻 Author & Connect
+
+**Muhammad Okasha**  
+*AI Systems & Full-Stack Software Architect*  
+- **GitHub:** [@muhammadokashapak](https://github.com/muhammadokashapak)
+- **Portfolio:** [Muhammad Okasha 3D Portfolio](https://github.com/muhammadokashapak/Portfolio-3D)
+
+---
+
+## 📄 License
+This project is open-source and licensed under the [MIT License](LICENSE).
